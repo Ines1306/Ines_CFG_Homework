@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homework#1 - Inês Branco Veiga</title>
+    <!-- Included bootstrap through https://getbootstrap.com/ -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link
+    rel="stylesheet" href="./style.css"
+    />
+    <script src="./script.js"> </script>
+</head>
+<body>
+<h2>
+    Welcome
+</h2>
+<p id="cart">
+    Add to the cart all of the amazing wines you want to taste on the day of your visit:
+</p>
+<div class="container" style="height:850px; width:850px">
+    <!-- White Wine -->
+    <div class="row">
+      <div class="col-4">
+        <!-- Included bootstrap card type through https://getbootstrap.com/docs/4.3/components/card/ -->
+        <div class="card">
+            <img src="./whitewine1.jpg" class="card-img-top" alt="hOURBranco">
+            <div class="card-body">
+                <h5 class="card-title"> 1,5€/cup </h5>
+                <div id="addORremove">
+                    <button id="less" onclick="removeGlass('White',0)">-</button>
+                    <p id="wineQuantityWhite1"> 0 </p>
+                    <button id="more" onclick="addGlass('White',0)">+</button>
+                </div>
+        </div>
+          </div>
+      </div>
+      <div class="col-4">
+        <div class="card">
+            <img src="./whitewine2.jpg" class="card-img-top" alt="VinhaGrande">
+            <div class="card-body">
+              <h5 class="card-title">2€/cup </h5>
+                <div id="addORremove">
+                    <button id="less" onclick="removeGlass('White',1)">-</button>
+                    <p id="wineQuantityWhite2"> 0 </p>
+                    <button id="more" onclick="addGlass('White',1)">+</button>
+                </div>
+            </div>
+          </div>
+      </div>
+      <div class="col-4">
+        <div class="card">
+            <img src="./whitewine3.jpg" class="card-img-top" alt="FlorS.Jose">
+            <div class="card-body">
+              <h5 class="card-title">2,5€/cup </h5>
+              <div id="addORremove">
+                <button id="less" onclick="removeGlass('White',2)">-</button>
+                <p id="wineQuantityWhite3"> 0 </p>
+                <button id="more" onclick="addGlass('White',2)">+</button>
+            </div>
+            </div>
+          </div>
+      </div>
+    </div>
+    <!-- Red Wine -->
+    <div class="row">
+      <div class="col-4">
+        <div class="card">
+            <img src="./redwine1.jpg" class="card-img-top" alt="BatutaDouro">
+            <div class="card-body">
+              <h5 class="card-title">1,5€/cup </h5>
+              <div id="addORremove">
+                <button id="less" onclick="removeGlass('Red',0)">-</button>
+                <p id="wineQuantityRed1"> 0 </p>
+                <button id="more" onclick="addGlass('Red',0)">+</button>
+            </div>
+            </div>
+          </div>
+      </div>
+      <div class="col-4">
+        <div class="card">
+            <img src="./redwine2.jpg" class="card-img-top" alt="CarolinaDouro">
+            <div class="card-body">
+              <h5 class="card-title">2€/cup </h5>
+              <div id="addORremove">
+                <button id="less" onclick="removeGlass('Red',1)">-</button>
+                <p id="wineQuantityRed2"> 0 </p>
+                <button id="more" onclick="addGlass('Red',1)">+</button>
+            </div>
+            </div>
+          </div>
+      </div>
+      <div class="col-4">
+        <div class="card">
+            <img src="./redwine3.jpg" class="card-img-top" alt="OboeSuperior">
+            <div class="card-body">
+              <h5 class="card-title">2,5€/cup </h5>
+              <div id="addORremove">
+                <button id="less" onclick="removeGlass('Red',2)">-</button>
+                <p id="wineQuantityRed3"> 0 </p>
+                <button id="more" onclick="addGlass('Red',2)">+</button>
+            </div>
+            </div>
+          </div>
+      </div>
+    </div>
+    <!-- Rose Wine -->
+    <div class="row">
+      <div class="col-4">
+        <div class="card">
+            <img src="./rosewine1.jpg" class="card-img-top" alt="Fisgas">
+            <div class="card-body">
+              <h5 class="card-title">1,5€/cup </h5>
+              <div id="addORremove">
+                <button id="less" onclick="removeGlass('Rose',0)">-</button>
+                <p id="wineQuantityRose1"> 0 </p>
+                <button id="more" onclick="addGlass('Rose',0)">+</button>
+            </div>
+            </div>
+          </div>
+      </div>
+      <div class="col-4">
+        <div class="card">
+            <img src="./rosewine2.jpg" class="card-img-top" alt="QuintaCarqueijal">
+            <div class="card-body">
+              <h5 class="card-title">2€/cup </h5>
+              <div id="addORremove">
+                <button id="less" onclick="removeGlass('Rose',1)">-</button>
+                <p id="wineQuantityRose2"> 0 </p>
+                <button id="more" onclick="addGlass('Rose',1)">+</button>
+            </div>
+            </div>
+          </div>
+      </div>
+      <div class="col-4">
+        <div class="card">
+            <img src="./rosewine3.jpg" class="card-img-top" alt="ValleNideo">
+            <div class="card-body">
+              <h5 class="card-title">2,5€/cup </h5>
+              <div id="addORremove">
+                <button id="less" onclick="removeGlass('Rose',2)">-</button>
+                <p id="wineQuantityRose3"> 0 </p>
+                <button id="more" onclick="addGlass('Rose',2)">+</button>
+            </div>
+            </div>
+            <!-- Images from https://douro-wines.com/pt/ -->
+          </div>
+      </div>
+    </div>
+  </div>
+ <div>
+  <button id="Next">
+    Next
+  </button>
+</div>
+</body>
+</html>
