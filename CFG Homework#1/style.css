@@ -35,3 +35,17 @@ h2, #cart {
 #addORremove p {
     margin: 0;
 }
+
+h6 {
+    margin-top: 20px;
+    margin-left: 20px;
+    font-weight: bold;
+}
+
+#seeyousoon {
+    height: 200px;
+    margin-top: 20px;
+    margin-left: 20px;
+    border: black;
+    border-style: dotted;
+}
