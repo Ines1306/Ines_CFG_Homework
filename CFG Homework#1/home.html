@@ -9,7 +9,7 @@
     <link
     rel="stylesheet" href="./style.css"
     />
-    <script src="./script.js"> </script>
+    <script src="./scriptHome.js"> </script>
 </head>
 <body>
 <h2>
@@ -29,7 +29,7 @@
                 <h5 class="card-title"> 1,5€/cup </h5>
                 <div id="addORremove">
                     <button id="less" onclick="removeGlass('White',0)">-</button>
-                    <p id="wineQuantityWhite1"> 0 </p>
+                    <p class="totalCups" id="wineQuantityWhite1"> 0 </p>
                     <button id="more" onclick="addGlass('White',0)">+</button>
                 </div>
         </div>
@@ -42,7 +42,7 @@
               <h5 class="card-title">2€/cup </h5>
                 <div id="addORremove">
                     <button id="less" onclick="removeGlass('White',1)">-</button>
-                    <p id="wineQuantityWhite2"> 0 </p>
+                    <p class="totalCups" id="wineQuantityWhite2"> 0 </p>
                     <button id="more" onclick="addGlass('White',1)">+</button>
                 </div>
             </div>
@@ -149,7 +149,7 @@
     </div>
   </div>
  <div>
-  <button id="Next">
+  <button id="Next" onclick="alert('You have a special offer that is only available online :) \nEnjoy your 10% off!')">
     Next
   </button>
 </div>
