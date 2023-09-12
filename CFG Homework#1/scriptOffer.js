@@ -1,7 +1,6 @@
 document.addEventListener("DOMContentLoaded", function getDataFromHomePage () {
 
 // Return a random order number up to 1000
-
 const randomNumbers=[]
 
 for (let i=0; i<1000; i++) {
