@@ -1,7 +1,7 @@
 // 1.
 //     Research unshift(), shift() and split()
 //     Write a short answer and explain what each one of them does
-//     Use unshift(), shif() and split() each in an example with theme 'CGFdegree'
+//     Use unshift(), shift() and split() each in an example with theme 'CGFdegree'
 
 // Answer 1.
 
@@ -14,7 +14,7 @@ classSoftware4.unshift("Raneem","Akram")
 console.log(classSoftware4) // it returns ['Raneem', 'Akram', 'Inês', 'Jax', 'Sarah', 'Kayla']
 
 // shift() is also used with arrays in JS in order to remove the first element of an array.
-// When using array.shift() it returns the first element of the array but the array has now
+// When using array.shift() it returns the first element of the array and the array has now
 // one less element (the first one).
 // Example:
 let assistantInstructor1 = classSoftware4.shift()
