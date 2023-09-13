@@ -1,7 +1,7 @@
-// Without the event listener the HTML does not load before the JS
+// Without this event listener the HTML does not load before the JS
 // Therefore we need the "DOMContentLoaded" eventListener to be able to change the HTML through JS
 
-document.addEventListener("DOMContentLoaded", function loadScript() {
+document.addEventListener("DOMContentLoaded", function loadScript1() {
     let name = prompt("Welcome to Douro Wine Tasting! \n Please let us know your name.")
     document.querySelector("h2").innerHTML = `Hello ${name}, thank you for booking with us.`
 })
