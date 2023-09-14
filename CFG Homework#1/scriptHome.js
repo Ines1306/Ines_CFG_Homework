@@ -52,6 +52,6 @@ document.addEventListener("DOMContentLoaded", function loadScript1() {
     document.getElementById("Next").addEventListener('click', function newPage() {
         const totalCostPage = calculateTotalCost();
         alert(`You have a special offer since you ordered online.\nEnjoy your 10% off!\nYour total cost is ${(totalCostPage*0.9).toFixed(2)}€`);
-        // Redirect to new page (OfferPage)
+        // Redirect to new page (Order Page)
         window.location.href = 'order.html'
     })})
