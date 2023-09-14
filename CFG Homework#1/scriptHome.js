@@ -14,9 +14,9 @@ document.addEventListener("DOMContentLoaded", function loadScript1() {
     const prices = [1.5, 2, 2.5]; // Prices for each type of wine
 
     function addGlass(wineType, wineId) {
-    quantities[wineType][wineId]++;
-    document.getElementById(`wineQuantity${wineType}${wineId + 1}`).innerHTML = quantities[wineType][wineId]; // wineId corresponds to the index, so it starts at 0, therefore I need to add 1
-    console.log(quantities[wineType][wineId]); // To make sure that the function is working
+        quantities[wineType][wineId]++;
+        document.getElementById(`wineQuantity${wineType}${wineId + 1}`).innerHTML = quantities[wineType][wineId]; // wineId corresponds to the index, so it starts at 0, therefore I need to add 1
+        console.log(quantities[wineType][wineId]); // To make sure that the function is working
     }
 
     function removeGlass(wineType, wineId) {
