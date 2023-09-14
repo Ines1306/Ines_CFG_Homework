@@ -13,15 +13,10 @@ document.addEventListener("DOMContentLoaded", function loadScript1() {
 
     const prices = [1.5, 2, 2.5]; // Prices for each type of wine
 
-    function updatePrice(wineType, wineId) {
-    return quantities[wineType][wineId] * prices[wineId];
-    }
-
     function addGlass(wineType, wineId) {
     quantities[wineType][wineId]++;
     document.getElementById(`wineQuantity${wineType}${wineId + 1}`).innerHTML = quantities[wineType][wineId]; // wineId corresponds to the index, so it starts at 0, therefore I need to add 1
     console.log(quantities[wineType][wineId]); // To make sure that the function is working
-    console.log(updatePrice(wineType,wineId)); // To check the calculated price
     }
 
     function removeGlass(wineType, wineId) {
@@ -29,10 +24,34 @@ document.addEventListener("DOMContentLoaded", function loadScript1() {
         quantities[wineType][wineId]--;
         document.getElementById(`wineQuantity${wineType}${wineId + 1}`).innerHTML = quantities[wineType][wineId];
         console.log(quantities[wineType][wineId]); // To make sure that the function is working
-        console.log(updatePrice(wineType,wineId)); // To check the calculated price
     }
     }
+
+    function calculateTotalCost() {
+        let totalCost = 0;
+
+        // Calculate total cost for White Wine
+        for (let i = 0; i < quantities.White.length; i++) {
+            totalCost += quantities.White[i] * prices[i];
+        }
+
+        // Calculate total cost for Red Wine
+        for (let i = 0; i < quantities.Red.length; i++) {
+            totalCost += quantities.Red[i] * prices[i];
+        }
+
+        // Calculate total cost for Rose Wine
+        for (let i = 0; i < quantities.Rose.length; i++) {
+            totalCost += quantities.Rose[i] * prices[i];
+        }
+
+        return totalCost;
+    }
+
     document.addEventListener('DOMContentLoaded', function() {
     document.getElementById("Next").addEventListener('click', function newPage() {
-        window.location.href = 'offer.html'
+        const totalCost = calculateTotalCost();
+        alert(`You have a special offer since you ordered online.\nEnjoy your 10% off!\nYour total cost is ${(totalCost*0.9).toFixed(2)}€`);
+        // Redirect to new page (OfferPage)
+        window.location.href = 'order.html'
     })})
