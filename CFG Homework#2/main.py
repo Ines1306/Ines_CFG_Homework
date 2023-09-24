@@ -74,7 +74,6 @@ answer_correct.append(answer_correct3)
 
 print(f"The answer is True. Harry was known as {data[0]['alternate_names'][0]} and {data[0]['alternate_names'][1]}.")
 
-
 #Question4
 
 answer_user4 = input("\nQuestion4: What species could Professor Remus Lupin turn into?").lower()
