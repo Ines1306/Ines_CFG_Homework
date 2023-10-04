@@ -1,4 +1,4 @@
--- This database is about fictional high-speed world trains that everyone wishes for them to exist 
+-- This database is about fictional high-speed world trains that everyone desires
 -- so we could travel and know more cultures easily and in a safe way!
 -- Let's assume that these trains don't have any stops in between and we are making a one-week test to check the adhesion to these trains.
 
@@ -6,9 +6,9 @@
 -- USE Trains
 
 -- CREATE TABLE Routes ( -- Table with the routes available
--- 	departure_station VARCHAR(50) NOT NULL,
---  arrival_station VARCHAR(50) NOT NULL,
---  route_ID INTEGER PRIMARY KEY
+-- departure_station VARCHAR(50) NOT NULL,
+-- arrival_station VARCHAR(50) NOT NULL,
+-- route_ID INTEGER PRIMARY KEY
 -- );
 
 -- CREATE TABLE Trips ( -- Table with the trips available
@@ -24,7 +24,7 @@
 -- 	first_name VARCHAR(55) NOT NULL,
 --  last_name VARCHAR(55) NOT NULL,
 --  passenger_ID INTEGER PRIMARY KEY,
---  age INTEGER CHECK(age>=18), -- When inserting date of a passenger with 17 years old the check constraint gave the following message Error Code: 3819. Check constraint 'passengers_chk_1' is violated.
+--  age INTEGER CHECK(age>=18), -- When inserting the age of a 17 years-old the check constraint gave the following message Error Code: 3819. Check constraint 'passengers_chk_1' is violated.
 --  nationality VARCHAR(15) NOT NULL
 -- );
 
@@ -36,7 +36,7 @@
 --  FOREIGN KEY (passenger_ID) REFERENCES Passengers(passenger_ID),
 --  FOREIGN KEY (route_ID) REFERENCES Routes(route_ID),
 --  FOREIGN KEY (trip_ID) REFERENCES Trips(trip_ID)
--- );
+-- );-- 
 
 -- INSERT INTO Routes
 -- (departure_station, arrival_station, route_ID)
@@ -50,14 +50,14 @@
 -- INSERT INTO Trips
 -- (trip_ID, departure_time, arrival_time, route_ID) -- I did not add status since it has a default value and at least for now we do not want to change it
 -- VALUES
--- (1, "2023-09-25 06:00:00", "2023-09-28 08:00:00", 1),
--- (2, "2023-09-24 06:00:00", "2023-09-27 08:00:00", 1),
--- (3, "2023-09-25 12:00:00", "2023-09-27 09:30:00", 2),
--- (4, "2023-09-26 09:00:00", "2023-09-28 01:30:00", 3),
--- (5, "2023-09-27 01:00:00", "2023-09-29 12:00:00", 3),
--- (6, "2023-09-27 08:00:00", "2023-09-30 01:00:00", 4),
--- (7, "2023-09-28 03:00:00", "2023-09-30 23:00:00", 5),
--- (8, "2023-09-29 02:00:00", "2023-10-01 22:00:00", 5);
+-- (1, "2023-10-09 06:00:00", "2023-10-12 08:00:00", 1),
+-- (2, "2023-10-08 06:00:00", "2023-10-10 08:00:00", 1),
+-- (3, "2023-10-09 12:00:00", "2023-10-10 09:30:00", 2),
+-- (4, "2023-10-10 09:00:00", "2023-10-11 01:30:00", 3),
+-- (5, "2023-10-11 01:00:00", "2023-10-12 12:00:00", 3),
+-- (6, "2023-10-11 08:00:00", "2023-10-14 01:00:00", 4),
+-- (7, "2023-10-12 03:00:00", "2023-10-14 23:00:00", 5),
+-- (8, "2023-10-13 02:00:00", "2023-10-15 22:00:00", 5);
 
 
 -- INSERT INTO Passengers
@@ -242,49 +242,100 @@
 -- (87, 85, 4, 6),
 -- (88, 86, 1, 1);
 
-
 -- There was an error when processing the payment of the last passenger so he won't be travelling. Let's first delete his data.
+-- SELECT MAX(passenger_ID) FROM bookings; -- the last passenger_ID is 86
+
 -- DELETE FROM Bookings
--- WHERE passenger_id = 86;
+-- WHERE passenger_ID = 86;
 
 -- DELETE FROM Passengers
--- WHERE passenger_id = 86;
+-- WHERE passenger_ID = 86;
 
 -- Let's make sure that records of this passenger do not exist both in tables Bookings and Passengers
--- SELECT passenger_id 
+-- SELECT passenger_ID 
 -- FROM Bookings
--- ORDER BY passenger_id DESC; -- We can see that the first passenger_id is 85, so the 86 was indeed deleted
+-- ORDER BY passenger_ID DESC; -- We can see that the first passenger_id is 85, so the 86 was indeed deleted
 
--- SELECT passenger_id
+-- SELECT passenger_ID
 -- FROM Passengers
--- ORDER BY passenger_id DESC; -- We can see that the first passenger_id is 85, so the 86 was indeed deleted
+-- ORDER BY passenger_ID DESC; -- We can see that the first passenger_id is 85, so the 86 was indeed deleted
 
 -- Let's check which trip has the most passengers and what is the route they take
 SELECT t.trip_ID, r.departure_station, r.arrival_station, subquery.trip_count_passengers
-FROM Trips as t
-LEFT JOIN Routes as r 
+FROM Trips AS t
+LEFT JOIN Routes AS r 
 ON t.route_ID = r.route_ID
 INNER JOIN (
-	SELECT b.trip_ID, COUNT(b.trip_ID) as trip_count_passengers
-	FROM Bookings as b
+	SELECT b.trip_ID, COUNT(b.trip_ID) AS trip_count_passengers -- To check which trip_ID has the most bookings
+	FROM Bookings AS b
 	GROUP BY b.trip_ID
 	ORDER BY 2 DESC -- Order the second column by descending order 
-	LIMIT 1) as subquery -- We only want the trip with the most passengers so we limit to the 1st row
+	LIMIT 1) AS subquery -- We only want the trip with the most passengers so we limit to the 1st row
 ON t.trip_ID = subquery.trip_ID;
 -- When running this query we can see that the trip 1 has the most passengers: 19 to be precise. The route is from Bangkok to Moscow.
 
 
--- It was decided that trips with less than ou equal to 5 passengers will be cancelled. Let's check if we have a trip in this condition.
--- Let's create a stored procedure to change the status of the trips whenever we want to.
-CREATE PROCEDURE ChangeStatusTrips()
+-- It was decided that trips with less than ou equal to 5 passengers up to 24h before the trip will be cancelled.
+-- Let's first check if we have a trip in this condition that might need cancelation in the future.
+SELECT trip_ID, COUNT(trip_ID) AS trip_count_passengers2 -- to check which trip_ID has the least bookings
+FROM Bookings AS b
+GROUP BY b.trip_ID
+HAVING COUNT(trip_ID) <= 5
+ORDER BY 2 ASC; 
+-- We can see that trip 2 has 5 passengers, so in the future the trip will be cancelled (considering that we won't add more passengers).
 
+-- Let's create a View that has the number of passengers per trip, ordered by the trip with the most passengers
+CREATE VIEW passengers_per_trip
+AS
+SELECT trip_ID, COUNT(trip_ID) AS trip_count_passengers3
+FROM Bookings AS b
+GROUP BY b.trip_ID
+ORDER BY 2 DESC; 
+
+
+-- Let's create a stored procedure to change the status of current and future trips to be cancelled when 
+-- they have 5 passengers or less within 24h of the trip.
+DELIMITER //
+CREATE PROCEDURE Cancel_Trips(
+IN tripID INT -- The input will be the tripID
+)
+BEGIN
+	DECLARE passengers_count INT; -- The number of passengers of the trip
+    DECLARE departure_time_trip DATETIME; -- The departure time of the trip
+    -- Let's get the number of passengers per trip
+    SELECT COUNT(trip_ID) INTO passengers_count -- Setting the variable we declared to be the number of passengers per trip
+	FROM Bookings AS b
+    GROUP BY trip_ID
+    HAVING b.trip_ID = tripID;
+    -- Let's set the departure_time_trip 
+    SELECT departure_time INTO departure_time_trip
+    FROM Trips as t
+    WHERE t.trip_ID = tripID;
+    -- Let's create the restrictions to check if trips have 5 passengers or less within 24h prior to the trip
+    IF passengers_count <= 5 AND TIMEDIFF(departure_time_trip, NOW()) <= "24:00:00" THEN
+		UPDATE Trips
+		SET status = 0
+        WHERE trip_ID = tripID;
+	END IF;
+END //
+DELIMITER ;
+-- Let's make sure that this SP is run every five hours to cancel trips with prior warning to the passengers
+CREATE EVENT cancel_trips_event
+	ON SCHEDULE EVERY 5 HOUR
+	DO
+	CALL Cancel_Trips(2);
+-- In this case we already know that only trip 2 has 5 passengers of less.
+-- For future reference, if we were to use this code with more trips it should be better to create a loop 
+-- and a condition that we only call this SP for trips with 5 or less passengers and within 24h of the trip.
+-- Nonetheless, for this particular assignment and due to the fact that loops are advanced material we will just be calling the SP
+-- for trip 2 for the purpose of this assignment.
 
 
 -- Let's check in which day of the week more passengers depart
-SELECT DAYNAME(t.departure_time) as day_week, COUNT(b.passenger_id) as passengers_count
-FROM Trips as t
-RIGHT JOIN Bookings as b ON t.trip_ID = b.trip_ID
-WHERE t.status = 1 -- ATUALIZAR QUERY DEPOIS DE STATUS SER 0!!!
+SELECT DAYNAME(t.departure_time) AS day_week, COUNT(b.passenger_id) as passengers_count2
+FROM Trips AS t
+RIGHT JOIN Bookings AS b ON t.trip_ID = b.trip_ID
+WHERE t.status = 1
 GROUP BY day_week
 ORDER BY -- When we order by day_week it orders alphabetically but we want the order to be by the day of week, starting on Monday.
 	CASE 
@@ -296,27 +347,29 @@ ORDER BY -- When we order by day_week it orders alphabetically but we want the o
         WHEN day_week = 'Saturday' THEN 6
         WHEN day_week = 'Sunday' THEN 7
     END;
--- We can see that the day the day with more passengers departing is on Monday and the day with least passengers departing is on Friday.
+-- We can see that the day with more passengers departing is on Monday and the day with least passengers departing
+-- is on Sunday (considering that on 04/10 the trip 2 is still at status 1).
+
 
 -- Let's check which trip has the biggest duration in hours
-SELECT t.trip_ID, r.departure_station, r.arrival_station, HOUR(TIMEDIFF(arrival_time, departure_time)) as trip_duration, t.departure_time, t.arrival_time
-FROM Trips as t
-LEFT JOIN Routes as r ON t.route_ID = r.route_ID
-WHERE t.status = 1 -- ATUALIZAR QUERY DEPOIS DE COLOCAR TRIP 2 COM STATUS 0!!!!!!!!!!!!!!!!!
+SELECT t.trip_ID, r.departure_station, r.arrival_station, HOUR(TIMEDIFF(arrival_time, departure_time)) AS trip_duration, t.departure_time, t.arrival_time
+FROM Trips AS t
+LEFT JOIN Routes AS r ON t.route_ID = r.route_ID
+WHERE t.status = 1
 ORDER BY trip_duration DESC;
 -- Amazing! Trip 1 takes 74h and is still the one with more passengers!
 
 -- Let's check which passengers have more than one booking
-SELECT passenger_ID, COUNT(passenger_ID) as passenger_count
+SELECT passenger_ID, COUNT(passenger_ID) AS passenger_count_booking
 FROM Bookings
 GROUP BY passenger_ID
-HAVING passenger_count > 1
-ORDER BY passenger_count;
+HAVING passenger_count_booking > 1
+ORDER BY passenger_count_booking;
 -- We can see that passengers 75 and 85 have 2 bookings. Let's check their info and their bookings:
 SELECT b.passenger_ID, p.first_name, p.last_name, p. age, p.nationality, b.route_ID, r.departure_station, r.arrival_station 
-FROM Bookings as b
-LEFT JOIN Passengers as p ON b.passenger_ID = p.passenger_ID
-LEFT JOIN Routes as r ON b.route_ID = r.route_ID
+FROM Bookings AS b
+LEFT JOIN Passengers AS p ON b.passenger_ID = p.passenger_ID
+LEFT JOIN Routes AS r ON b.route_ID = r.route_ID
 WHERE b.passenger_ID = 75 OR b.passenger_ID = 82
 ORDER BY age; 
 -- We can see that Donetta and Teddie have 2 bookings:
@@ -324,14 +377,13 @@ ORDER BY age;
 -- Teddie, aged 66 and Chinese booked the Lisbon-Dubai trip and Bangkok-Moscow trip as well
 
 -- Let's check where and when Ines is travelling
-SELECT CONCAT(p.first_name, ' ', p.last_name) as full_name, p.age, p.nationality, r.departure_station, r.arrival_station, t.departure_time
-FROM Passengers as p
-RIGHT JOIN Bookings as b ON p.passenger_ID = b.passenger_ID
-LEFT JOIN Routes as r ON b.route_ID = r.route_ID
-LEFT JOIN Trips as t ON b.trip_ID = t.trip_ID
+SELECT CONCAT(p.first_name, ' ', p.last_name) AS full_name, p.age, p.nationality, r.departure_station, r.arrival_station, t.departure_time
+FROM Passengers AS p
+RIGHT JOIN Bookings AS b ON p.passenger_ID = b.passenger_ID
+LEFT JOIN Routes AS r ON b.route_ID = r.route_ID
+LEFT JOIN Trips AS t ON b.trip_ID = t.trip_ID
 WHERE CONCAT(p.first_name, ' ', p.last_name) LIKE 'Ines%';
--- Great! Ines, aged 27 and Portuguese, will be travelling on the 27th of September from Lisbon to Dubai!
+-- Great! Ines, aged 27 and Portuguese, will be travelling on the 11th of October from Lisbon to Dubai!
 
--- Imagine that this was actually real and not a fake scenario. Only one trip was canceled and people would be able to 
--- travel faster to different capitals of the World.
+-- Imagine that this was actually real and not a fake scenario. People would be able to travel faster to different capitals of the World.
 -- Considering all the assumptions, these world trips would be a complete success!
