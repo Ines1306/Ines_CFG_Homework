@@ -72,7 +72,7 @@ So time complexity is linear therefore O(n).
 
 The space complexity is 0(1) since while when we are looping we are only saving constants
 such as user_choice, base_url and current_url, which are strings.
-So space complexity is constant therefore 0(n).
+So space complexity is constant therefore 0(1).
 
 As for assumptions, we assume that the user_choice, the current and base URLs are single
 strings and do not depend on functions or other data structures, being constants.

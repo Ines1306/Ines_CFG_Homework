@@ -2,7 +2,6 @@
 A
 """
 
-# import OrderedDict to remember the order of the entries in the list
 from collections import deque
 
 line_order = deque([])
@@ -29,7 +28,7 @@ The time complexity is O(n) as we are looping through n lines and performing str
 also n times. So it is linear as the time complexity depends on the number of lines.
 
 The space complexity is also O(n) as we are adding n names into the list line_order. So everytime we are 
-looping through a line, we add the respective name to the list.
+looping through a line, we add the respective name to the list n times.
 
 As for assumptions we assume that each line has the same length, in this case two words, with the first
 being JUMP/JOIN and the second one being a name.
