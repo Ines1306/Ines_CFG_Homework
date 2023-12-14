@@ -2,14 +2,14 @@ import abc
 from math import sqrt
 
 
-class Shape(object):
+class Shape:
     @abc.abstractmethod
-    def calc_perimeter(self, input):
-        return
+    def calc_perimeter(self):
+        pass
 
     @abc.abstractmethod
-    def calc_area(self, input):
-        return
+    def calc_area(self):
+        pass
 
 class Square(Shape):
     def __init__(self, a):
@@ -20,7 +20,7 @@ class Square(Shape):
         return perim
 
     def calc_area(self):
-        area = self.a * 2
+        area = self.a * self.a
         return area
 
 class Rectangle(Shape):
@@ -53,7 +53,7 @@ s = Square(6)
 print(s.calc_perimeter())
 # should get 24
 print(s.calc_area())
-# should get 12
+# should get 36
 r = Rectangle(6, 4)
 print(r.calc_perimeter())
 # should get 20
