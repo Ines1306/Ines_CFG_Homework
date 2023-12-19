@@ -5,9 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="be2fbb89-9db5-4e0c-9979-60c01b031dd2" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/CFG Homework #4 - Software_Specialization/Topic1.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/CFG Homework #4 - Software_Specialization/Topic2.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/CFG Homework #4 - Software_Specialization/Topic3.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -23,18 +20,27 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="ines_homework4software" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 8
 }</component>
   <component name="ProjectId" id="2ZCGAkTvUFfb0z6Og4Cdl3pR6cR" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
     "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Python.Question1.executor": "Run",
     "Python.Question2.executor": "Run",
@@ -42,7 +48,7 @@
     "Python.Topic3.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "ines__homework3software",
+    "git-widget-placeholder": "ines__specializationexam",
     "last_opened_file_path": "C:/Users/diogo/OneDrive/Ambiente de Trabalho/Ines/CFG/Ines_CFG_Homework",
     "settings.editor.selected.configurable": "preferences.keymap"
   }
@@ -50,7 +56,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-67fca87a943a-d3b881c8e49f-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-233.11799.259" />
+        <option value="bundled-python-sdk-7a29c1521ef0-d3b881c8e49f-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-233.11799.298" />
       </set>
     </attachedChunks>
   </component>
@@ -64,5 +70,8 @@
       <updated>1701918505635</updated>
     </task>
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
 </project>
